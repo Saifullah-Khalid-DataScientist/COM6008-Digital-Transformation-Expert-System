@@ -657,15 +657,19 @@ if analyse_clicked:
     # ── RISK FLAGS ────────────────────────────────────────────────────────────
 
     if result["risk_flags"]:
-        with st.expander("Risk Flags Identified", expanded=False):
-            for flag in result["risk_flags"]:
-                st.markdown(
-                    f'<div style="color:#f0c4bf;padding:0.45rem 0;font-size:1rem;">🔴 {flag}</div>',
-                    unsafe_allow_html=True)
+        st.markdown('''<div style="background:rgba(30,58,95,0.3);border:1px solid rgba(46,134,193,0.2);border-radius:10px;padding:0.75rem 1rem;margin:0.5rem 0;">
+        <span style="color:#aed6f1;font-size:1rem;font-weight:600;">&#9660; Risk Flags Identified</span></div>''', unsafe_allow_html=True)
+        for flag in result["risk_flags"]:
+            st.markdown(
+                f'<div style="color:#f0c4bf;padding:0.45rem 1rem;font-size:1rem;">🔴 {flag}</div>',
+                unsafe_allow_html=True)
 
     # ── RULE TRACE ────────────────────────────────────────────────────────────
 
-    with st.expander(f"View Expert Rule Trace ({len(result['rules_triggered'])} rules fired)", expanded=False):
+    num_rules = len(result["rules_triggered"])
+    st.markdown(f'''<div style="background:rgba(30,58,95,0.3);border:1px solid rgba(46,134,193,0.2);border-radius:10px;padding:0.75rem 1rem;margin:0.5rem 0;">
+    <span style="color:#aed6f1;font-size:1rem;font-weight:600;">&#9660; View Expert Rule Trace ({num_rules} rules fired)</span></div>''', unsafe_allow_html=True)
+    if True:
         cat_color_map = {
             "Infrastructure":        "#2e86c1",
             "Data & Intelligence":   "#8b6914",
