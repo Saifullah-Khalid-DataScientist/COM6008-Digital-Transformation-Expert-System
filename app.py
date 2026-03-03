@@ -287,6 +287,23 @@ label { color: #aed6f1 !important; font-size: 1rem !important; }
     border-radius: 10px !important;
     animation: fadeSlideIn 0.5s ease both;
 }
+details[data-testid="stExpander"] summary {
+    color: #aed6f1 !important;
+    font-size: 1rem !important;
+    font-weight: 600 !important;
+    padding: 0.75rem 1rem !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+}
+details[data-testid="stExpander"] summary p,
+details[data-testid="stExpander"] summary span {
+    position: static !important;
+    overflow: visible !important;
+    white-space: normal !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
 </style>
 """, unsafe_allow_html=True)
 
@@ -640,7 +657,7 @@ if analyse_clicked:
     # ── RISK FLAGS ────────────────────────────────────────────────────────────
 
     if result["risk_flags"]:
-        with st.expander("⚠️  Risk Flags Identified"):
+        with st.expander("Risk Flags Identified", expanded=False):
             for flag in result["risk_flags"]:
                 st.markdown(
                     f'<div style="color:#f0c4bf;padding:0.45rem 0;font-size:1rem;">🔴 {flag}</div>',
@@ -648,7 +665,7 @@ if analyse_clicked:
 
     # ── RULE TRACE ────────────────────────────────────────────────────────────
 
-    with st.expander(f"🧠  View Expert Rule Trace  ({len(result['rules_triggered'])} rules fired)"):
+    with st.expander(f"View Expert Rule Trace ({len(result['rules_triggered'])} rules fired)", expanded=False):
         cat_color_map = {
             "Infrastructure":        "#2e86c1",
             "Data & Intelligence":   "#8b6914",
