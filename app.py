@@ -72,15 +72,15 @@ LIGHT = {
     "sel_bg":          "#ffffff","sel_border":"#7fb3d3","sel_txt":"#1a2a3a",
     "lbl":             "#1a2a3a","prio":"#1a4a7a",
     "chart_bg":        "#ffffff","chart_txt":"#1a2a3a","chart_grid":"#c8dff0",
-    "marker":          "#1a2a3a","sub_txt":"#aed6f1","amber_txt":"#8b5000",
+    "marker":          "#1a2a3a","sub_txt":"#1a4a7a","amber_txt":"#b35a00",
 }
 
 T = DARK if st.session_state.theme == "dark" else LIGHT
 
 st.markdown(f"""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap');
-* {{ font-family:'Space Grotesk',sans-serif !important; }}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap');
+* {{ font-family:'Inter',sans-serif !important; }}
 code,pre {{ font-family:'JetBrains Mono',monospace !important; }}
 @keyframes fadeSlideIn {{ from{{opacity:0;transform:translateY(22px)}} to{{opacity:1;transform:translateY(0)}} }}
 @keyframes heroGlow {{ 0%,100%{{box-shadow:0 8px 32px rgba(46,110,164,.25)}} 50%{{box-shadow:0 8px 56px rgba(46,110,164,.5)}} }}
@@ -149,21 +149,48 @@ div[data-testid="stButton"]>button {{
     background-size:400% 400%; color:white; border:none; border-radius:10px;
     padding:.7rem 2.5rem; font-size:1.05rem; font-weight:600; width:100%;
     animation:shimmerBtn 5s ease infinite; transition:transform .2s,box-shadow .2s; }}
-div[data-testid="stButton"]>button:hover {{ transform:translateY(-2px); box-shadow:0 8px 28px rgba(139,105,20,.45); }}
+div[data-testid="stButton"]>button:hover {{
+    transform:translateY(-2px); box-shadow:0 8px 28px rgba(139,105,20,.45); }}
+
 div[data-testid="stDownloadButton"]>button {{
     background:linear-gradient(135deg,#1a6b45 0%,#0d3d26 100%);
     color:white; border:1px solid #1a6b45; border-radius:10px;
     padding:.65rem 2rem; font-size:1rem; font-weight:600; width:100%; transition:all .2s; }}
 div[data-testid="stDownloadButton"]>button:hover {{
     background:linear-gradient(135deg,#27ae60,#1a6b45); box-shadow:0 6px 20px rgba(26,107,69,.4); }}
+    
 label {{ color:{T["lbl"]} !important; font-size:1rem !important; }}
 </style>
 """, unsafe_allow_html=True)
 
 # ── THEME TOGGLE ──────────────────────────────────────────────────────────────
-tcol1, tcol2 = st.columns([10, 1])
+st.markdown("<div style='height:1.2rem'></div>", unsafe_allow_html=True)
+tcol1, tcol2 = st.columns([11, 1])
 with tcol2:
     btn_label = "☀️ Light" if st.session_state.theme == "dark" else "🌙 Dark"
+    st.markdown(f"""
+    <style>
+    div[data-testid="stButton"] > button {{
+        background: rgba(30,58,95,0.5) !important;
+        color: #e8f4fd !important;
+        border: 1px solid rgba(46,134,193,0.5) !important;
+        border-radius: 20px !important;
+        padding: 0.3rem 0.9rem !important;
+        font-size: 0.82rem !important;
+        font-weight: 600 !important;
+        width: auto !important;
+        min-width: unset !important;
+        animation: none !important;
+        letter-spacing: 0.3px !important;
+        transition: all 0.2s !important;
+    }}
+    div[data-testid="stButton"] > button:hover {{
+        background: rgba(46,134,193,0.3) !important;
+        transform: none !important;
+        box-shadow: 0 2px 8px rgba(46,134,193,0.3) !important;
+    }}
+    </style>
+    """, unsafe_allow_html=True)
     if st.button(btn_label, key="theme_toggle"):
         st.session_state.theme = "light" if st.session_state.theme == "dark" else "dark"
         st.rerun()
